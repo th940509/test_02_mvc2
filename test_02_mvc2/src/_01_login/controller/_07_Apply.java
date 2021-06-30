@@ -8,9 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/Login.do")
-public class _04_login extends HttpServlet {
+import _01_login.dao.MemberDAO;
+import _01_login.dto.MemberDTO;
+
+@WebServlet("/Apply.do")
+public class _07_Apply extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,7 +26,16 @@ public class _04_login extends HttpServlet {
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/04_login.jsp");
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("memId");
+		
+		if (id != null) {
+			MemberDTO mdto = MemberDAO.GetInstance().getOneMemberInfo(id);
+			request.setAttribute("mdto", mdto);
+		}
+		
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/07_apply.jsp");
 		dis.forward(request, response);
 	}
 

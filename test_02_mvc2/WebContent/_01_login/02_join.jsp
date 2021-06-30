@@ -50,7 +50,7 @@
 		<h1>회원가입</h1>
 			<p>메가 아카데미를 찾아 주셔서 감사합니다!</p>
 			<hr>
-			<form method="post" action="joinAction.do" onsubmit="return formValidationCheck()">
+			<form method="post" action="JoinAction.do" onsubmit="return formValidationCheck()">
 				<h4>로그인 정보</h4>
 				<label for="id">아이디</label>&nbsp;<input type="text" id="id" name="id" autofocus>
 				<br><br>

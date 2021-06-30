@@ -10,7 +10,7 @@
 	<c:if test="${isJoin eq true }">
 		<script>
 			alert("회원가입을 축하합니다!")
-			location.href="main.do";
+			location.href="Main.do";
 		</script>
 	</c:if>
 	<c:if test="${isJoin eq false }">

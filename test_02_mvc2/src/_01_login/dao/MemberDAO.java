@@ -3,6 +3,7 @@ package _01_login.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -94,4 +95,56 @@ public class MemberDAO {
 		}
     	return isLogin;
     }
+    
+    // 4. 한명의 회원 정보 조회 DAO
+    public MemberDTO getOneMemberInfo(String id) {
+    	MemberDTO mdto = null;
+    	
+    	try {
+			conn = getConnection();
+			pstmt= conn.prepareStatement("SELECT * FROM MEMBER WHERE ID=?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mdto = new MemberDTO();
+				mdto.setId(rs.getString("id"));
+				mdto.setPw(rs.getString("pw"));
+				mdto.setName(rs.getString("name"));
+				mdto.setTel(rs.getString("tel"));
+				mdto.setEmail(rs.getString("email"));
+				mdto.setField(rs.getString("field"));
+				mdto.setSkill(rs.getString("skill"));
+				mdto.setMajor(rs.getString("major"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try    {rs.close();}    catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try  {conn.close();}  catch(Exception e) {e.printStackTrace();}
+		}
+    	return mdto;
+    }
+    
+    // 6. 입사지원DAO
+    public void apply(String id, String field, String skill, String major) {
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("UPDATE MEMBER INTO FIELD=?, SKILL=?, MAJOR=? WHERE ID=?");
+			pstmt.setString(1, field);
+			pstmt.setString(2, skill);
+			pstmt.setString(3, major);
+			pstmt.setString(4, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {try {pstmt.close();} catch (SQLException e) {}}
+            if(conn != null)  {try {conn.close();} catch (SQLException e) {}}
+		}
+    }
+    
+    
 }

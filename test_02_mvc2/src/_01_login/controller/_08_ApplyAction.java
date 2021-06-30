@@ -12,34 +12,38 @@ import javax.servlet.http.HttpSession;
 
 import _01_login.dao.MemberDAO;
 
-
-@WebServlet("/_05_loginAction")
-public class _05_loginAction extends HttpServlet {
+@WebServlet("/ApplyAction.do")
+public class _08_ApplyAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request, response);
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("memId");
+		request.setAttribute("id", id);
 		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
+		String field = request.getParameter("field");
+		String major = request.getParameter("major");
+		String[] temp = request.getParameterValues("skill");
 		
-		boolean isLogin = MemberDAO.GetInstance().loginMember(id,pw);
-		
-		if(isLogin) { // 세션 적용
-			HttpSession session = request.getSession();
-			session.setAttribute("memId", id); // 세션 값 설정
+		String skill = ""; // 한줄로 만들기
+		for(int i=0; i<temp.length; i++) {
+				skill += temp[i];
+				if(i != temp.length-1) {
+					skill += ",";
+				}
 		}
 		
-		request.setAttribute("isLogin", isLogin);
+		MemberDAO.GetInstance().apply(id,field,skill,major);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/05_loginAction");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/08_applyAction");
 		dis.forward(request, response);
 	}
 

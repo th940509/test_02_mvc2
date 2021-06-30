@@ -8,46 +8,39 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import _01_login.dao.MemberDAO;
-import _01_login.dto.MemberDTO;
 
-@WebServlet("/JoinActionn.do")
-public class _03_joinAction extends HttpServlet {
+
+@WebServlet("/LoginAction.do")
+public class _05_LoginAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request,response);
+		reqPro(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request,response);
+		reqPro(request, response);
 	}
 	
 	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
 		
-		String id    = request.getParameter("id");
-		String pw    = request.getParameter("pw");
-		String name  = request.getParameter("name");
-		String tel   = request.getParameter("tel");
-		String email = request.getParameter("email");
+		boolean isLogin = MemberDAO.GetInstance().loginMember(id,pw);
 		
-		MemberDTO mdto = new MemberDTO();
-		mdto.setId(id);
-		mdto.setPw(pw);
-		mdto.setName(name);
-		mdto.setTel(tel);
-		mdto.setEmail(email);
+		if(isLogin) { // 세션 적용
+			HttpSession session = request.getSession();
+			session.setAttribute("memId", id); // 세션 값 설정
+		}
 		
-		boolean isJoin = MemberDAO.GetInstance().joinMember(mdto);
+		request.setAttribute("isLogin", isLogin);
 		
-		request.setAttribute("isJoin", isJoin); // joinAction에서 isJoin값 사용
-		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/01_joinAction.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/05_loginAction");
 		dis.forward(request, response);
-				
 	}
 
 }
