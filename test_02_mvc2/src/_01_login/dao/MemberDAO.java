@@ -39,8 +39,9 @@ public class MemberDAO {
 		return conn;
 	}
     
-    // 회원가입DAO
+    // 1. 회원가입DAO -> id중복확인 중복되지 않으면 DB에 입력
     public boolean joinMember(MemberDTO mdto) {
+    	
     	boolean isJoin = false;
     	
     	try {
@@ -67,5 +68,30 @@ public class MemberDAO {
 			if(conn!=null)  {try {conn.close();}  catch (Exception e) {e.printStackTrace();}}
 		}
     	return isJoin;
+    }
+    
+    // 2. 로그인DAO -> 입력된 ID,PW에 맞는 회원이 있는 지 확인
+    public boolean loginMember(String id, String pw) {
+    	
+    	boolean isLogin = false;
+    	
+    	try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM MEMBER WHERE ID=? AND PW=?");
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				isLogin = true;
+			}
+    	} catch (Exception e) {
+    		e.printStackTrace();
+		} finally {
+			if(rs!=null)    try {rs.close();}    catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)  try {conn.close();}  catch (Exception e) {e.printStackTrace();}
+		}
+    	return isLogin;
     }
 }
