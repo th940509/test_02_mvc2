@@ -21,7 +21,7 @@ public class _02_Join extends HttpServlet {
 		reqPro(request, response);
 	}
 	
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dis = request.getRequestDispatcher("_01_login/02_join.jsp");
 		dis.forward(request, response);
 	}

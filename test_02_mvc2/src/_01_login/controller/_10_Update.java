@@ -13,29 +13,44 @@ import javax.servlet.http.HttpSession;
 import _01_login.dao.MemberDAO;
 import _01_login.dto.MemberDTO;
 
-@WebServlet("/Apply.do")
-public class _07_Apply extends HttpServlet {
+@WebServlet("/Update.do")
+public class _10_Update extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request,response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		reqPro(request,response);
 	}
 	
 	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("memId");
 		
-		if (id != null) {
-			MemberDTO mdto = MemberDAO.GetInstance().getOneMemberInfo(id);
+		MemberDTO mdto = MemberDAO.GetInstance().getOneMemberInfo(id);
+		
+		if(mdto.getField() != null) {
+			
+			String[] skills = mdto.getSkill().split(",");
+			
+			for(String skill : skills) { // 향상된 for문 : for(자료형 변수명: 배열명) {}
+				if(skill.equals("html"))       request.setAttribute("html", true);
+				if(skill.equals("css"))        request.setAttribute("css", true);
+				if(skill.equals("javascript")) request.setAttribute("javascript", true);
+				if(skill.equals("java"))       request.setAttribute("java", true);
+				if(skill.equals("jsp"))        request.setAttribute("jsp", true);
+				if(skill.equals("spring"))     request.setAttribute("spring", true);
+			}
 			request.setAttribute("mdto", mdto);
+			request.setAttribute("isFirstApply", false);
+		}
+		else {
+			request.setAttribute("isFirstApply", true);
 		}
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/07_apply.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/10_update.jsp");
 		dis.forward(request, response);
 	}
 

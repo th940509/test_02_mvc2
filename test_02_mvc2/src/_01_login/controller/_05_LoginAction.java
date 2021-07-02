@@ -25,7 +25,7 @@ public class _05_LoginAction extends HttpServlet {
 		reqPro(request, response);
 	}
 	
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");

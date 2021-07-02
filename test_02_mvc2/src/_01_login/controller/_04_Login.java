@@ -21,7 +21,7 @@ public class _04_Login extends HttpServlet {
 		reqPro(request,response);
 	}
 	
-	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dis = request.getRequestDispatcher("_01_login/04_login.jsp");
 		dis.forward(request, response);
 	}

@@ -11,39 +11,53 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import _01_login.dao.MemberDAO;
+import _01_login.dto.MemberDTO;
 
-@WebServlet("/ApplyAction.do")
-public class _08_ApplyAction extends HttpServlet {
+@WebServlet("/UpdateAction.do")
+public class _11_UpdateAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		reqPro(request,response);
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		reqPro(request,response);
 	}
 	
-	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("memId");
-		request.setAttribute("id", id);
-		
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String tel = request.getParameter("tel");
+		String email= request.getParameter("email");
 		String field = request.getParameter("field");
-		String major = request.getParameter("major");
 		String[] temp = request.getParameterValues("skill");
+		String major =  request.getParameter("major");
 		
-		String skill = ""; // 한줄로 만들기
+		String skill = "";
 		for(int i=0; i<temp.length; i++) {
-				skill += temp[i];
-				if(i != temp.length-1) {
-					skill += ",";
-				}
+			skill += temp[i];
+			if(i != temp.length-1) {
+				skill += ",";
+			}
 		}
 		
-		MemberDAO.GetInstance().apply(id,field,skill,major);
+		MemberDTO mdto = new MemberDTO();
+		mdto.setPw(pw);
+		mdto.setName(name);
+		mdto.setTel(tel);
+		mdto.setEmail(email);
+		mdto.setField(field);
+		mdto.setSkill(skill);
+		mdto.setMajor(major);
+
+		MemberDAO.GetInstance().updateMember(id, mdto);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/08_applyAction");
+		RequestDispatcher dis = request.getRequestDispatcher("");
 		dis.forward(request, response);
 	}
 

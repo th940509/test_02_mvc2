@@ -10,25 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/Main.do")
-public class _01_Main extends HttpServlet {
+@WebServlet("/Logout.do")
+public class _06_Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		reqPro(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		reqPro(request, response);
+		reqPro(request,response);
 	}
 	
-	public void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void reqPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession(); // 세션 값 가져오기
-		String id = (String)session.getAttribute("memId");
-		request.setAttribute("id", id);
+		HttpSession session = request.getSession();
+		session.invalidate(); //세션끊기
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/01_main.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("");
 		dis.forward(request, response);
 	}
 
