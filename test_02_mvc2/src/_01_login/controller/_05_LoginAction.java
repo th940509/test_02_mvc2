@@ -39,7 +39,7 @@ public class _05_LoginAction extends HttpServlet {
 		
 		request.setAttribute("isLogin", isLogin);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/05_loginAction");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/05_loginAction.jsp");
 		dis.forward(request, response);
 	}
 

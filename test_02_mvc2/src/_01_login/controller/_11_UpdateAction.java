@@ -57,7 +57,7 @@ public class _11_UpdateAction extends HttpServlet {
 
 		MemberDAO.GetInstance().updateMember(id, mdto);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/11_updateAction.jsp");
 		dis.forward(request, response);
 	}
 

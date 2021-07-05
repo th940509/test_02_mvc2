@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import _01_login.dao.MemberDAO;
 import _01_login.dto.MemberDTO;
 
-@WebServlet("/JoinActionn.do")
+@WebServlet("/JoinAction.do")
 public class _03_JoinAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class _03_JoinAction extends HttpServlet {
 		
 		request.setAttribute("isJoin", isJoin); // joinAction에서 isJoin값 사용
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/01_joinAction.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/03_joinAction.jsp");
 		dis.forward(request, response);
 				
 	}

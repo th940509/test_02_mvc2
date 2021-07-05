@@ -11,6 +11,7 @@
 		<c:if test="${id ne null }">
 		<a href="Update.do">입사지원정보수정</a> <br><br>
 		<a href="Logout.do">로그아웃</a> <br><br>
+		<a href="Delete.do">탈퇴</a> <br><br>
 		</c:if>
 		
 		<c:if test="${id eq null }">
