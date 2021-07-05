@@ -26,7 +26,7 @@
 			<h4>기술능력</h4>
 			<input type="checkbox" id="skill" name="skill" value="html">HTML
 			<input type="checkbox" id="skill" name="skill" value="css">CSS
-			<input type="checkbox" id="skill" name="skill" value="javascript">JavaScript
+			<input type="checkbox" id="skill" name="skill" value="javascript">JavaScriptL
 			<input type="checkbox" id="skill" name="skill" value="java">Java
 			<input type="checkbox" id="skill" name="skill" value="jsp">JSP
 			<input type="checkbox" id="skill" name="skill" value="spring">Spring

@@ -32,7 +32,7 @@
 					<h3>지원분야</h3>
 					<label>
 						<input type="radio" name="field" value="publishing"
-							<c:if test="${mdto.field eq 'publishing' }">checked</c:if>> 웹 퍼블리싱
+							<c:if text="${mdto.field eq 'publishing' }">checked</c:if>> 웹 퍼블리싱
 					</label>
 					<label>
 						<input type="radio" name="field" value="frontend"
@@ -57,7 +57,7 @@
 					</label>
 					<label>
 						<input type="checkbox" name="skill" value="java"
-							<c:if test="${java eq true }">checked</c:if>>Java
+							<c:if test="${java eq true }"checked</c:if>>Java
 					</label>
 					<label>
 						<input type="checkbox" name="skill" value="jsp"

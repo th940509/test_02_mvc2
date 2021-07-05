@@ -27,7 +27,7 @@ public class _06_Logout extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate(); //세션끊기
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/06_logout.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("");
 		dis.forward(request, response);
 	}
 

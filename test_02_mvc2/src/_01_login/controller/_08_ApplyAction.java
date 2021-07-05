@@ -43,7 +43,7 @@ public class _08_ApplyAction extends HttpServlet {
 		
 		MemberDAO.GetInstance().apply(id,field,skill,major);
 		
-		RequestDispatcher dis = request.getRequestDispatcher("_01_login/08_applyAction.jsp");
+		RequestDispatcher dis = request.getRequestDispatcher("_01_login/08_applyAction");
 		dis.forward(request, response);
 	}
 

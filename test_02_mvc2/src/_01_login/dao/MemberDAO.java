@@ -150,28 +150,12 @@ public class MemberDAO {
     	return mdto;
     }
     
-    // 5. 회원탈퇴DAO
-    public void deleteMember(String id) {
-    	
-    	try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement("DELETE FROM MEMBER WHERE ID=?");
-			pstmt.setString(1, id);
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(pstmt != null) {try {pstmt.close();} catch (Exception e) {e.printStackTrace();}}
-			if(conn != null) {try {conn.close();} catch (Exception e) {e.printStackTrace();}}
-		}
-    }
-    
     // 6. 입사지원DAO
     public void apply(String id, String field, String skill, String major) {
     	
     	try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("UPDATE MEMBER SET FIELD=?, SKILL=?, MAJOR=? WHERE ID=?");
+			pstmt = conn.prepareStatement("UPDATE MEMBER INTO FIELD=?, SKILL=?, MAJOR=? WHERE ID=?");
 			pstmt.setString(1, field);
 			pstmt.setString(2, skill);
 			pstmt.setString(3, major);
